@@ -201,4 +201,9 @@ class Steamcmd(object):
         try:
             return subprocess.check_call(steamcmd_params)
         except subprocess.CalledProcessError:
-            raise SteamcmdException("Steamcmd was unable to run. Did you install your 32-bit libraries?")
+            # 5 war limit exceeded
+            if subprocess.CalledProcessError == 5:
+                print('Too many logins. Try later...')
+                exit(5)
+            else:
+                raise SteamcmdException("Steamcmd was unable to run. Did you install your 32-bit libraries?")
